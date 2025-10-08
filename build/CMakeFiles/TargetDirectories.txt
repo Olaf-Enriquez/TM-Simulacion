@@ -1,0 +1,4 @@
+/home/olaf/TM_Simulacion/build/CMakeFiles/TM_Sim.dir
+/home/olaf/TM_Simulacion/build/CMakeFiles/Sim1.dir
+/home/olaf/TM_Simulacion/build/CMakeFiles/edit_cache.dir
+/home/olaf/TM_Simulacion/build/CMakeFiles/rebuild_cache.dir
