@@ -15,6 +15,8 @@
 #include "G4SubtractionSolid.hh"//Cajas huecas
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
+#include "G4Trd.hh"
+#include "G4RotationMatrix.hh"
 
 class Construccion : public G4VUserDetectorConstruction //Declaración de clase
 {
@@ -27,22 +29,24 @@ private:
 	G4bool CheckTraslapes; //Detectar traslapes de volumenes
 	G4Box *MundoSolido, *ReflectorSolido, *AceroSolido, *IntnmSolido, *ProductorPlacaSolido, *ProductorPlacaSolido2, *CentelladorSolido; //Declarar mundo, caja del 6nm64, acero
 	G4Box *GondolaExterior, *GondolaSolido, *GondolaIntSolido;
-	G4Tubs *ProductorTuboSolido, *ModeradorSolido, *ContenedorSolido, *ContenedorTapasSolido, *TrifluoruroSolido; //Declara tubo prod
+	G4Trd *TrapSolido, *TrapIntSolido;
+	G4Tubs *ProductorTuboSolido, *ModeradorSolido, *ContenedorSolido, *ContenedorTapasSolido, *TrifluoruroSolido, *PMTSolido; //Declara tubo prod
 	G4LogicalVolume *MundoLogico, *ReflectorLogico, *AceroLogico, *IntnmLogico, *ProductorPlacaLogico, *ProductorPlacaLogico2, *CentelladorLogico;//Declarar lógica del mundo, caja del 6nm64, acero
 	G4LogicalVolume *ProductorTuboLogico, *ModeradorLogico, *ContenedorLogico, *ContenedorTapasLogico, *TrifluoruroLogico;//Declarar lógica de tubos prod
-	G4LogicalVolume *GondolaLogico, *GondolaIntLogico;
+	G4LogicalVolume *GondolaLogico, *GondolaIntLogico, *TrapIntLogico, *TrapLogico, *PMTLogico;
 	G4VPhysicalVolume *MundoFisico, *ReflectorFisico, *AceroFisico, *IntnmFisico, *ProductorPlacaFisico, *ProductorPlacaFisico2, *CentelladorFisico;//Declarar mundo físico, caja física del 6nm64, acero
-	G4VPhysicalVolume *GondolaFisico, *GondolaIntFisico;
+	G4VPhysicalVolume *GondolaFisico, *GondolaIntFisico, *TrapFisico, *TrapIntFisico, *PMTFisico;
 	G4VPhysicalVolume *ProductorTuboFisico, *ModeradorFisico, *ContenedorFisico, *ContenedorTapasFisico, *TrifluoruroFisico;
 	G4double CoorX, CoorY, CoorZ, ReflectorX, ReflectorY, ReflectorZ, AceroX, AceroY, AceroZ, IntnmX, IntnmY, IntnmZ, ProductorPlacaX, ProductorPlacaY, ProductorPlacaZ, ProductorPlacaX2; //Coordenadas mundo, caja del 6nm64, soporte acero
-	G4double CentelladorX, CentelladorY, CentelladorZ;
+	G4double CentelladorX, CentelladorY, CentelladorZ,TrapX1, TrapX2, TrapY1, TrapY2, TrapZ;
 	G4double GondolaX, GondolaY, GondolaZ, GondolaGrosorX, GondolaGrosorY, GondolaGrosorZ;
 	G4double RadInProductorTubo, RadExProductorTubo, HZProductorTubo, AnguloInicialProductorTubo, AnguloArcoProductorTubo;//radios,half lenght y  angulos productores 
 	G4double RadInModerador, RadExModerador, HZModerador, AnguloInicialModerador, AnguloArcoModerador;//radios,half lenght y  angulos moderadores
 	G4double RadInContenedor, RadExContenedor, HZContenedor, AnguloInicialContenedor, AnguloArcoContenedor;//radios,half lenght y  angulos contenedores
 	G4double RadInContenedorTapas, RadExContenedorTapas, HZContenedorTapas, AnguloInicialContenedorTapas, AnguloArcoContenedorTapas;//radios,half lenght y  angulos tapas de contenedores
-	G4double RadInTrifluoruro, RadExTrifluoruro, HZTrifluoruro, AnguloInicialTrifluoruro, AnguloArcoTrifluoruro;//radios,half lenght y  angulos Trifluoruros
+	G4double RadInTrifluoruro, RadExTrifluoruro, HZTrifluoruro, AnguloInicialTrifluoruro, AnguloArcoTrifluoruro, PMTRadIn, PMTRadExt, PMTz, PMTAnguloIni, PMTAnguloArco;//radios,half lenght y  angulos Trifluoruros
 	G4Material *MaterialMundo, *MaterialReflector, *Acero, *MaterialIntnm, *MaterialProductor, *MaterialModerador, *MaterialCentellador, *MaterialGondola; //material del fondo, caja del 6nm64, acero
+	G4Material *Silice, *OxidoBorico, *OxidoSodio, *OxidoPotasio, *OxidoCalcio, *OxidoAluminio, *Pyrex;
 	G4VisAttributes *AtributosAluminio, *AtributosAcero, *AtributosReflector, *AtributosCentellador;
 	
 };
