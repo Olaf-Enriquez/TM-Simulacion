@@ -25,7 +25,7 @@ G4VPhysicalVolume *Construccion::Construct()
 	
 	MaterialMundo=Nist->FindOrBuildMaterial("G4_AIR");//Material Mundo
 	CoorX=4. *m;//Tamaño mundo
-	CoorY=4. *m;
+	CoorY=6. *m;
 	CoorZ=4. *m;
 	MundoSolido=new G4Box("MundoSolido", 0.5*CoorX, 0.5*CoorY, 0.5*CoorZ); //Cajita de mundo
 	MundoLogico=new G4LogicalVolume(MundoSolido, MaterialMundo, "MundoLogico"); //Lógica de mundo
@@ -246,7 +246,7 @@ G4VPhysicalVolume *Construccion::Construct()
 	for(G4int i=0; i<2; i++){	
 		for(G4int j=0; j<2; j++){
 			for(G4int k=0; k<2; k++){
-				CentelladorFisico=new G4PVPlacement(0,G4ThreeVector(0.001 *m, 0.001 *m, 0.001 *m),CentelladorLogico, "CentelladorFisico", GondolaIntLogico, false, i+j+k, CheckTraslapes);
+				CentelladorFisico=new G4PVPlacement(0,G4ThreeVector(0. *m, 0. *m, 0. *m),CentelladorLogico, "CentelladorFisico", GondolaIntLogico, false, i+j+k, CheckTraslapes);
 		}}};
 	
 
@@ -292,18 +292,41 @@ G4VPhysicalVolume *Construccion::Construct()
 	for(G4int i=0; i<2; i++){
 			for(G4int k=0; k<2; k++){
 				G4Rotate3D Rota2(90.*deg, G4ThreeVector(1,0,0));
-  				G4Translate3D Tras2(G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,-0.25*ReflectorZ + k*0.5*ReflectorZ,1.2 *m ));
+  				G4Translate3D Tras2(G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,-0.25*ReflectorZ + k*0.5*ReflectorZ,1.18 *m ));
   				G4Transform3D TransTrap2 = Rota2*Tras2;
-				PMTFisico=new G4PVPlacement(TransTrap2, PMTLogico, "TrapFisico", MundoLogico, false, i+k, CheckTraslapes);
+				PMTFisico=new G4PVPlacement(TransTrap2, PMTLogico, "-PMTFisico", MundoLogico, false, i+k, CheckTraslapes);
 		}};
 		
 	for(G4int i=0; i<2; i++){
 			for(G4int k=0; k<2; k++){
 				G4Rotate3D Rota3(90.*deg, G4ThreeVector(-1,0,0));
-  				G4Translate3D Tras3(G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX,-0.25*ReflectorZ + k*0.5*ReflectorZ, 1.5678 *m -(ReflectorY+AceroY-1.0*m)));
+  				G4Translate3D Tras3(G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX,-0.25*ReflectorZ + k*0.5*ReflectorZ, 1.5678 *m -(ReflectorY+AceroY-0.93251*m)));
   				G4Transform3D TransTrap3 = Rota3*Tras3;
-				PMTFisico=new G4PVPlacement(TransTrap3,PMTLogico, "TrapFisico", MundoLogico, false, -(i+k), CheckTraslapes);
+				PMTFisico=new G4PVPlacement(TransTrap3,PMTLogico, "PMTFisico", MundoLogico, false, -(i+k), CheckTraslapes);
 		}};
-	
+		
+///////Tapas PMTs
+
+/*	TapaPMTX=0.2 *m;
+	TapaPMTY=0.25 *m;
+	TapaPMTZ=0.2 *m;
+	TapaPMTGrosorX=0.01 *m;
+	TapaPMTGrosorY=0.01 *m;
+	TapaPMTGrosorZ=0.01 *m;
+	TapaPMTSolido=new G4Box("TapaPMTSólido", 0.5*TapaPMTX, 0.5*TapaPMTY, 0.5*TapaPMTZ);
+	TapaPMTLogico = new G4LogicalVolume(TapaPMTSolido, MaterialGondola, "TapaPMTLogico");
+	TapaPMTIntSolido=new G4Box("TapaPMTIntSólido", 0.5*(TapaPMTX-TapaPMTGrosorX), 0.5*(TapaPMTY-0.5*TapaPMTGrosorY), 0.5*(TapaPMTZ-TapaPMTGrosorZ));
+	TapaPMTIntLogico = new G4LogicalVolume(TapaPMTIntSolido, MaterialMundo, "TapaPMTIntLogico");
+	TapaPMTLogico->SetVisAttributes(AtributosAluminio);
+	for(G4int i=0; i<2; i++){
+			for(G4int k=0; k<2; k++){
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,1.76331 *m,-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", 						MundoLogico, false, i+k, CheckTraslapes);
+				TapaPMTIntFisico=new G4PVPlacement(0,G4ThreeVector(0.,0. *m,0.),TapaPMTIntLogico, "TapaPMTIntFisico", TapaPMTLogico, true, i+k, CheckTraslapes);
+		}};
+	for(G4int i=0; i<2; i++){
+			for(G4int k=0; k<2; k++){
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,0.7678 *m -(ReflectorY+AceroY+0.2153*m),-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", MundoLogico, false, -(i+k), CheckTraslapes);
+				TapaPMTIntFisico=new G4PVPlacement(0,G4ThreeVector(0.,0. *m,0.),TapaPMTIntLogico, "TapaPMTFisico", TapaPMTLogico, true, -(i+k), CheckTraslapes);
+		}};*/
 	return MundoFisico;
 }
