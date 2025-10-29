@@ -307,26 +307,47 @@ G4VPhysicalVolume *Construccion::Construct()
 		
 ///////Tapas PMTs
 
-/*	TapaPMTX=0.2 *m;
-	TapaPMTY=0.25 *m;
+	TapaPMTX=0.2 *m;
+	TapaPMTY=0.01 *m;
 	TapaPMTZ=0.2 *m;
-	TapaPMTGrosorX=0.01 *m;
-	TapaPMTGrosorY=0.01 *m;
-	TapaPMTGrosorZ=0.01 *m;
 	TapaPMTSolido=new G4Box("TapaPMTSólido", 0.5*TapaPMTX, 0.5*TapaPMTY, 0.5*TapaPMTZ);
 	TapaPMTLogico = new G4LogicalVolume(TapaPMTSolido, MaterialGondola, "TapaPMTLogico");
-	TapaPMTIntSolido=new G4Box("TapaPMTIntSólido", 0.5*(TapaPMTX-TapaPMTGrosorX), 0.5*(TapaPMTY-0.5*TapaPMTGrosorY), 0.5*(TapaPMTZ-TapaPMTGrosorZ));
-	TapaPMTIntLogico = new G4LogicalVolume(TapaPMTIntSolido, MaterialMundo, "TapaPMTIntLogico");
 	TapaPMTLogico->SetVisAttributes(AtributosAluminio);
 	for(G4int i=0; i<2; i++){
 			for(G4int k=0; k<2; k++){
-				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,1.76331 *m,-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", 						MundoLogico, false, i+k, CheckTraslapes);
-				TapaPMTIntFisico=new G4PVPlacement(0,G4ThreeVector(0.,0. *m,0.),TapaPMTIntLogico, "TapaPMTIntFisico", TapaPMTLogico, true, i+k, CheckTraslapes);
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,1.83731 *m,-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", 						MundoLogico, false, i+k, CheckTraslapes);
 		}};
 	for(G4int i=0; i<2; i++){
 			for(G4int k=0; k<2; k++){
-				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,0.7678 *m -(ReflectorY+AceroY+0.2153*m),-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", MundoLogico, false, -(i+k), CheckTraslapes);
-				TapaPMTIntFisico=new G4PVPlacement(0,G4ThreeVector(0.,0. *m,0.),TapaPMTIntLogico, "TapaPMTFisico", TapaPMTLogico, true, -(i+k), CheckTraslapes);
-		}};*/
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,-0.3017 *m -(ReflectorY+AceroY+0.2153*m),-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", MundoLogico, false, -(i+k), CheckTraslapes);
+		}};
+		
+//////Paredes PMTs		
+	
+	/*TapaPMTX=0.2 *m;
+	TapaPMTY=0.01 *m;
+	TapaPMTZ=0.2 *m;
+	TapaPMTSolido=new G4Box("TapaPMTSólido", 0.5*TapaPMTX, 0.5*TapaPMTY, 0.5*TapaPMTZ);
+	TapaPMTLogico = new G4LogicalVolume(TapaPMTSolido, MaterialGondola, "TapaPMTLogico");
+	TapaPMTLogico->SetVisAttributes(AtributosAluminio);
+	for(G4int i=0; i<2; i++){
+			for(G4int k=0; k<2; k++){
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,1.83731 *m,-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", 						MundoLogico, false, i+k, CheckTraslapes);
+		}};
+	for(G4int i=0; i<2; i++){
+			for(G4int k=0; k<2; k++){
+				TapaPMTFisico=new G4PVPlacement(0,G4ThreeVector(-0.25*ReflectorX + i*0.5*ReflectorX ,-0.3017 *m -(ReflectorY+AceroY+0.2153*m),-0.25*ReflectorZ + k*0.5*ReflectorZ),TapaPMTLogico, "TapaPMTFisico", MundoLogico, false, -(i+k), CheckTraslapes);
+		}};*/	
+		
+	
 	return MundoFisico;
 }
+
+void Construccion::ConstructSDandField(){
+
+	Sensor = new SensitiveDetector("Sensor");
+	PMTLogico -> SetSensitiveDetector(Sensor);
+	G4SDManager::GetSDMpointer() -> AddNewDetector(Sensor);
+
+}
+

@@ -17,6 +17,8 @@
 #include "G4Color.hh"
 #include "G4Trd.hh"
 #include "G4RotationMatrix.hh"
+#include "G4SDManager.hh"
+#include "SensitiveDetector.hh"
 
 class Construccion : public G4VUserDetectorConstruction //Declaración de clase
 {
@@ -24,6 +26,7 @@ public:
 	Construccion();
 	virtual ~Construccion();
 	virtual G4VPhysicalVolume *Construct(); //Funcion principal para construir
+	G4LogicalVolume *GetScoringVolume() const {return ScoringVolume;}
 private: 
 	G4int natoms;
 	G4bool CheckTraslapes; //Detectar traslapes de volumenes
@@ -33,7 +36,7 @@ private:
 	G4Tubs *ProductorTuboSolido, *ModeradorSolido, *ContenedorSolido, *ContenedorTapasSolido, *TrifluoruroSolido, *PMTSolido; //Declara tubo prod
 	G4LogicalVolume *MundoLogico, *ReflectorLogico, *AceroLogico, *IntnmLogico, *ProductorPlacaLogico, *ProductorPlacaLogico2, *CentelladorLogico;//Declarar lógica del mundo, caja del 6nm64, acero
 	G4LogicalVolume *ProductorTuboLogico, *ModeradorLogico, *ContenedorLogico, *ContenedorTapasLogico, *TrifluoruroLogico;//Declarar lógica de tubos prod
-	G4LogicalVolume *GondolaLogico, *GondolaIntLogico, *TrapIntLogico, *TrapLogico, *PMTLogico, *TapaPMTLogico, *TapaPMTIntLogico;
+	G4LogicalVolume *GondolaLogico, *GondolaIntLogico, *TrapIntLogico, *TrapLogico, *PMTLogico, *TapaPMTLogico, *TapaPMTIntLogico, *ScoringVolume;
 	G4VPhysicalVolume *MundoFisico, *ReflectorFisico, *AceroFisico, *IntnmFisico, *ProductorPlacaFisico, *ProductorPlacaFisico2, *CentelladorFisico;//Declarar mundo físico, caja física del 6nm64, acero
 	G4VPhysicalVolume *GondolaFisico, *GondolaIntFisico, *TrapFisico, *TrapIntFisico, *PMTFisico, *TapaPMTFisico, *TapaPMTIntFisico;
 	G4VPhysicalVolume *ProductorTuboFisico, *ModeradorFisico, *ContenedorFisico, *ContenedorTapasFisico, *TrifluoruroFisico;
@@ -49,5 +52,7 @@ private:
 	G4Material *Silice, *OxidoBorico, *OxidoSodio, *OxidoPotasio, *OxidoCalcio, *OxidoAluminio, *Pyrex;
 	G4VisAttributes *AtributosAluminio, *AtributosAcero, *AtributosReflector, *AtributosCentellador;
 	
+	virtual void ConstructSDandField();
+	SensitiveDetector *Sensor;
 };
 #endif

@@ -6,6 +6,7 @@
 #include "G4RunManager.hh"
 #include "G4AnalysisManager.hh"
 #include "G4UnitsTable.hh"
+#include "G4PhysicsOrderedFreeVector.hh"
 
 class SensitiveDetector : public G4VSensitiveDetector{
 
@@ -16,14 +17,17 @@ public :
 
 private :
 
-	G4double TotalEnergyDep, EnergyDepByStep, GlobalTime, MomentumMagPhoton, Wavelength;
-	G4ThreeVector PhotonPos, PhotonMom;
+	G4double GlobalTime, MomentumMagPhoton, Wavelength, SensorWavelenght, SensorEff;//EnergyDepByStep,TotalEnergyDep//Se pasaron a EventAction.hh
+	G4ThreeVector PhotonPos, PhotonMom, PositionInDetector;
 	G4int EventID;
 
 	virtual void Initialize(G4HCofThisEvent *) override;
 	virtual void EndOfEvent(G4HCofThisEvent *) override;
 	virtual G4bool ProcessHits(G4Step *, G4TouchableHistory *);
 	G4StepPoint *PreStep;
+	const G4VTouchable *TouchableVolume;
+	G4PhysicsOrderedFreeVector *SensorEfficiency;
+	
 };
 
 #endif

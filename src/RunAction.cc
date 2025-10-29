@@ -8,6 +8,12 @@ RunAction::RunAction(){
 	AnalysisManager -> CreateNtupleIColumn("EventIDEjemplo2");///Integers("nombre") 1ra col Tupla
 	AnalysisManager -> CreateNtupleDColumn("PosXEjemplo2");///Doubles("nombre") 2da col Tupla
 	AnalysisManager -> FinishNtuple(0);//No siempre es 0, depende del numero de tupla
+	AnalysisManager -> CreateNtuple("Tupla2","Eficiencia Cuantica");
+	AnalysisManager -> CreateNtupleIColumn("EventIDEffCuantica");///Integers("nombre") 1ra col Tupla
+	AnalysisManager -> CreateNtupleDColumn("PosXEffCuantica");///Doubles("nombre") 2da col Tupla
+	AnalysisManager -> CreateNtupleDColumn("PosYEffCuantica");///Doubles("nombre") 2da col Tupla
+	AnalysisManager -> CreateNtupleDColumn("PosZEffCuantica");///Doubles("nombre") 2da col Tupla
+	AnalysisManager -> FinishNtuple(1);//Depende del numero de tupla
 
 };
 
