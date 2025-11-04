@@ -10,6 +10,8 @@
 #include "PhysList.hh"
 #include "Construccion.hh"
 #include "Inizializador.hh"
+#include "QBBC.hh"
+#include "G4HadronElasticPhysics.hh"
 
 int main(int argc, char** argv)
 {	
@@ -22,6 +24,11 @@ int main(int argc, char** argv)
 	RunManager->SetUserInitialization(new PhysList());//Incluir el PhysList
 	RunManager->SetUserInitialization(new Construccion());//Incluir la construccion
 	RunManager->SetUserInitialization(new action());//Incluir inizializacion
+	
+	auto FisicaHadronica = new QBBC();
+	FisicaHadronica -> RegisterPhysics(new G4HadronElasticPhysics());
+	FisicaHadronica -> SetVerboseLevel(1);//Imprimir info de las interacciones
+	RunManager -> SetUserInitialization(FisicaHadronica);
 	
 	G4UIExecutive *UIExecutive = new G4UIExecutive(argc, argv);
 	G4UImanager *UImanager = G4UImanager::GetUIpointer();
