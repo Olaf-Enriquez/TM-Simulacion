@@ -5,7 +5,10 @@ G4VPhysicalVolume *Construccion::Construct()
 {
 	CheckTraslapes=true;
 	G4NistManager *Nist=G4NistManager::Instance();
-
+	EnergiaALongitud = 1.239841939 *eV;
+	Energia = {EnergiaALongitud/0.52,EnergiaALongitud/0.5,EnergiaALongitud/0.48,EnergiaALongitud/0.46,EnergiaALongitud/0.44,EnergiaALongitud/0.42,EnergiaALongitud/0.4};//Tesis Karl
+	//G4double Energia[6]={EnergiaALongitud/0.9,EnergiaALongitud/0.8,EnergiaALongitud/0.7,EnergiaALongitud/0.6,EnergiaALongitud/0.5,EnergiaALongitud/0.4,EnergiaALongitud/0.3}	
+	
 ////////Elementos
 
 	G4Element* elFe = Nist->FindOrBuildElement("Fe");//Definir elemento Hierro
@@ -21,9 +24,13 @@ G4VPhysicalVolume *Construccion::Construct()
 	G4Element* elCa = Nist->FindOrBuildElement("Ca");;//Definir elemento Calcio
 	G4Element* elAl = Nist->FindOrBuildElement("Al");;//Definir elemento Aluminio
 
-////////Mundo Fisico	
+////////Mundo
 	
 	MaterialMundo=Nist->FindOrBuildMaterial("G4_AIR");//Material Mundo
+	PropiedadesMundo = new G4MaterialPropertiesTable();
+	RefraccionMundo = {1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+	PropiedadesMundo -> AddProperty("RINDEX", Energia, RefraccionMundo, 2);//(Etiqueta indice, rango de enrgia, indices en rango, #argumentos)
+	MaterialMundo->SetMaterialPropertiesTable(PropiedadesMundo);
 	CoorX=4. *m;//Tamaño mundo
 	CoorY=6. *m;
 	CoorZ=4. *m;
@@ -234,6 +241,26 @@ G4VPhysicalVolume *Construccion::Construct()
 	MaterialCentellador->AddMaterial(Terfenilo, 98.5*perCent);//Definir composicion para Centellador
 	MaterialCentellador->AddMaterial(PPO, 1*perCent);
 	MaterialCentellador->AddMaterial(POPOP, 0.5*perCent);
+	PropiedadesCentellador = new G4MaterialPropertiesTable();//Propiedades opticas centellador
+	RefraccionCentellador = {1.581,1.581,1.581,1.581,1.581,1.581,1.581};
+	FraccionCentellador = {1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+	ReflectividadCentellador = {1.0,1.0,1.0,1.0,1.0,1.0,1.0};
+	PropiedadesCentellador-> AddProperty("RINDEX", Energia, RefraccionCentellador, 2);//(Etiqueta indice, rango de enrgia, indices en rango, #argumentos)
+	PropiedadesCentellador-> AddProperty("SCINTILLATIONCOMPONENT1", Energia, FraccionCentellador, 2);
+	PropiedadesCentellador-> AddProperty("RAYLEIGH", Energia, RefraccionCentellador, 2);
+	PropiedadesCentellador-> AddConstProperty("RESOLUTIONSCALE", 1.0);
+	PropiedadesCentellador-> AddConstProperty("SCINTILLATIONYIELD", 8000.0/MeV);
+	PropiedadesCentellador-> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 3.0 *ns);
+	MaterialCentellador-> SetMaterialPropertiesTable(PropiedadesCentellador);
+	MaterialCentellador-> GetIonisation() -> SetBirksConstant(0.0208 *cm/MeV);
+	SuperficieCentellador =new G4OpticalSurface("SuperficieCentellador");//Propiedades superficie opticas centellador
+	SuperficieCentellador->SetType(dielectric_dielectric);
+	SuperficieCentellador->SetFinish(polished);
+	SuperficieCentellador -> SetPolish(0.8);
+	SuperficieCentellador->SetModel(glisur);
+	PropiedadesCentelladorSup = new G4MaterialPropertiesTable();
+	PropiedadesCentelladorSup -> AddProperty("REFLECTIVITY", Energia, ReflectividadCentellador);
+	SuperficieCentellador->SetMaterialPropertiesTable(PropiedadesCentelladorSup);
 	AtributosCentellador=new G4VisAttributes(G4Color(255,255,255,0.7));
 	AtributosCentellador->SetForceSolid(true);
 	
@@ -243,6 +270,7 @@ G4VPhysicalVolume *Construccion::Construct()
 	CentelladorSolido=new G4Box("CentelladorSolido", 0.5*CentelladorX, 0.5*CentelladorY, 0.5*CentelladorZ); //Cajita de Centellador
 	CentelladorLogico=new G4LogicalVolume(CentelladorSolido, MaterialCentellador, "CentelladorLogico"); //Lógica de Centellador
 	CentelladorLogico->SetVisAttributes(AtributosCentellador);
+	new G4LogicalSkinSurface("SuperficieCentelladorLogico", CentelladorLogico, SuperficieCentellador);//Activar superficie centellador
 	for(G4int i=0; i<2; i++){	
 		for(G4int j=0; j<2; j++){
 			for(G4int k=0; k<2; k++){

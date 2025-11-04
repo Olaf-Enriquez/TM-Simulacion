@@ -19,6 +19,9 @@
 #include "G4RotationMatrix.hh"
 #include "G4SDManager.hh"
 #include "SensitiveDetector.hh"
+#include "G4OpticalSurface.hh"
+#include "G4LogicalSkinSurface.hh"
+#include "G4MaterialPropertiesTable.hh"
 
 class Construccion : public G4VUserDetectorConstruction //Declaración de clase
 {
@@ -44,13 +47,16 @@ private:
 	G4double CentelladorX, CentelladorY, CentelladorZ,TrapX1, TrapX2, TrapY1, TrapY2, TrapZ, TapaPMTX, TapaPMTY, TapaPMTZ, TapaPMTGrosorX, TapaPMTGrosorY, TapaPMTGrosorZ;
 	G4double GondolaX, GondolaY, GondolaZ, GondolaGrosorX, GondolaGrosorY, GondolaGrosorZ;
 	G4double RadInProductorTubo, RadExProductorTubo, HZProductorTubo, AnguloInicialProductorTubo, AnguloArcoProductorTubo;//radios,half lenght y  angulos productores 
-	G4double RadInModerador, RadExModerador, HZModerador, AnguloInicialModerador, AnguloArcoModerador;//radios,half lenght y  angulos moderadores
+	G4double RadInModerador, RadExModerador, HZModerador, AnguloInicialModerador, AnguloArcoModerador, EnergiaALongitud;//radios,half lenght y  angulos moderadores
 	G4double RadInContenedor, RadExContenedor, HZContenedor, AnguloInicialContenedor, AnguloArcoContenedor;//radios,half lenght y  angulos contenedores
 	G4double RadInContenedorTapas, RadExContenedorTapas, HZContenedorTapas, AnguloInicialContenedorTapas, AnguloArcoContenedorTapas;//radios,half lenght y  angulos tapas de contenedores
 	G4double RadInTrifluoruro, RadExTrifluoruro, HZTrifluoruro, AnguloInicialTrifluoruro, AnguloArcoTrifluoruro, PMTRadIn, PMTRadExt, PMTz, PMTAnguloIni, PMTAnguloArco;//radios,half lenght y  angulos Trifluoruros
 	G4Material *MaterialMundo, *MaterialReflector, *Acero, *MaterialIntnm, *MaterialProductor, *MaterialModerador, *MaterialCentellador, *MaterialGondola; //material del fondo, caja del 6nm64, acero
 	G4Material *Silice, *OxidoBorico, *OxidoSodio, *OxidoPotasio, *OxidoCalcio, *OxidoAluminio, *Pyrex;
 	G4VisAttributes *AtributosAluminio, *AtributosAcero, *AtributosReflector, *AtributosCentellador;
+	std::vector<G4double> Energia, RefraccionMundo, RefraccionCentellador, FraccionCentellador, ReflectividadCentellador; //Propiedades Opcticas gondolas/centelladores
+	G4MaterialPropertiesTable *PropiedadesMundo, *PropiedadesCentellador,  *PropiedadesCentelladorSup; //Tablas propiedades ópticas
+	G4OpticalSurface *SuperficieCentellador;
 	
 	virtual void ConstructSDandField();
 	SensitiveDetector *Sensor;
