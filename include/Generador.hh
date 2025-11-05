@@ -7,6 +7,7 @@
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4SystemOfUnits.hh"
+#include "G4GeneralParticleSource.hh"
 
 class generador_primario : public G4VUserPrimaryGeneratorAction{
 
@@ -15,9 +16,12 @@ class generador_primario : public G4VUserPrimaryGeneratorAction{
 		~generador_primario();//Destructor
 		virtual void GeneratePrimaries(G4Event *);
 	private :
-		G4double GunX, GunY, GunZ, MomX, MomY, MomZ; //Coordenadas y momento de "pistola" de particulas
+		
+		G4GeneralParticleSource *Gun;
+		
+		/*G4double GunX, GunY, GunZ, MomX, MomY, MomZ; //Coordenadas y momento de "pistola" de particulas
 		G4ParticleGun *Gun;
-		G4ParticleTable *Table;
+		G4ParticleTable *Table;*/
 
 };
 

@@ -2,7 +2,9 @@
 
 generador_primario::generador_primario(){ //Constructor
 
-Gun = new G4ParticleGun(1);
+Gun = new G4GeneralParticleSource();//Fuente particulas
+
+/*Gun = new G4ParticleGun(1);//Pistola de particulas
 GunX = 0. *m;//Coordenadas gun
 GunY = 3. *m;
 GunZ = 0. *m;
@@ -14,12 +16,12 @@ G4ThreeVector GunPosition(GunX, GunY, GunZ);//PosicionGun
 G4ThreeVector GunMomentum(MomX, MomY, MomZ);//MomentoGun
 
 G4ParticleTable *ParticleTable = G4ParticleTable::GetParticleTable();
-G4ParticleDefinition *ParticleDef = ParticleTable -> FindParticle("e-");
+G4ParticleDefinition *ParticleDef = ParticleTable -> FindParticle("mu-");
 //Definir propiedades del Gun
 Gun -> SetParticlePosition(GunPosition);
 Gun -> SetParticleMomentumDirection(GunMomentum);
-Gun -> SetParticleEnergy(100 *MeV);
-Gun -> SetParticleDefinition(ParticleDef);
+Gun -> SetParticleEnergy(40 *GeV);
+Gun -> SetParticleDefinition(ParticleDef);*/
 
 }
 

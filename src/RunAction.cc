@@ -6,7 +6,11 @@ RunAction::RunAction(){
 	AnalysisManager -> CreateH1("Histo","Ejemplo",10,0,100);//Histograma1D("nombre","Titulo",#bins,min dbl,max dbl)
 	AnalysisManager -> CreateNtuple("Tupla","Ejemplo2");//Tupla("nombre","Titulo")
 	AnalysisManager -> CreateNtupleIColumn("EventIDEjemplo2");///Integers("nombre") 1ra col Tupla
+	AnalysisManager -> CreateNtupleDColumn("GTimeEjemplo2");
 	AnalysisManager -> CreateNtupleDColumn("PosXEjemplo2");///Doubles("nombre") 2da col Tupla
+	AnalysisManager -> CreateNtupleDColumn("PosYEjemplo2");
+	AnalysisManager -> CreateNtupleDColumn("PosZEjemplo2");
+	AnalysisManager -> CreateNtupleDColumn("WLEjemplo2");
 	AnalysisManager -> FinishNtuple(0);//No siempre es 0, depende del numero de tupla
 	AnalysisManager -> CreateNtuple("Tupla2","Eficiencia Cuantica");
 	AnalysisManager -> CreateNtupleIColumn("EventIDEffCuantica");///Integers("nombre") 1ra col Tupla

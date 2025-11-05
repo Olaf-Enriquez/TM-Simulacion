@@ -1,0 +1,23 @@
+/run/numberOfThreads 8
+/run/initialize
+/gps/particle mu-
+/gps/direction 0. -1. 0. 
+/gps/position 0. 3. 0. m
+/gps/pos/type Plane
+/gps/pos/shape Square
+/gps/pos/centre 0. 3. 0. m
+/gps/pos/halfx 2. m
+/gps/pos/halfz 2. m
+/gps/ang/type cos
+/gps/ang/mintheta 0 deg
+/gps/ang/maxtheta 15 deg
+/gps/ang/minphi 0 deg
+/gps/ang/maxphi 360 deg
+/gps/ene/type Gauss
+/gps/ene/mono 400 MeV
+/gps/ene/sigma 50. MeV
+#/gps/ene/type Pow
+#/gps/ene/min 10 GeV
+#/gps/ene/max 100 GeV
+#/gps/ene/alpha -2.7
+/run/beamOn 100

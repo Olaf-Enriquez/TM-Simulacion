@@ -250,7 +250,7 @@ G4VPhysicalVolume *Construccion::Construct()
 	PropiedadesCentellador-> AddProperty("RAYLEIGH", Energia, RefraccionCentellador, 2);
 	PropiedadesCentellador-> AddConstProperty("RESOLUTIONSCALE", 1.0);
 	PropiedadesCentellador-> AddConstProperty("SCINTILLATIONYIELD", 8000.0/MeV);
-	PropiedadesCentellador-> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 3.0 *ns);
+	PropiedadesCentellador-> AddConstProperty("SCINTILLATIONTIMECONSTANT1", 2.0 *ns);
 	MaterialCentellador-> SetMaterialPropertiesTable(PropiedadesCentellador);
 	MaterialCentellador-> GetIonisation() -> SetBirksConstant(0.0208 *cm/MeV);
 	SuperficieCentellador =new G4OpticalSurface("SuperficieCentellador");//Propiedades superficie opticas centellador
